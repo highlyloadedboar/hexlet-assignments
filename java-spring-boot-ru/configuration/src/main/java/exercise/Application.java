@@ -19,9 +19,10 @@ public class Application {
     // Все пользователи
     private List<User> users = Data.getUsers();
 
+    // BEGIN
     @Autowired
     private UserProperties userProperties;
-    // BEGIN
+
     @GetMapping("/admins")
     public List<User> getAdmins() {
         Set<String> emails = new HashSet<>(userProperties.getAdmins());
