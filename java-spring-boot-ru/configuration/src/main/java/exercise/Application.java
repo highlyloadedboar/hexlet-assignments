@@ -1,9 +1,6 @@
 package exercise;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +26,7 @@ public class Application {
     public List<User> getAdmins() {
         Set<String> emails = new HashSet<>(userProperties.getAdmins());
 
-        return users.stream().filter(u -> emails.contains(u.getEmail())).sorted().toList();
+        return users.stream().filter(u -> emails.contains(u.getEmail())).sorted(Comparator.comparing(User::getName)).toList();
     }
     // END
 
