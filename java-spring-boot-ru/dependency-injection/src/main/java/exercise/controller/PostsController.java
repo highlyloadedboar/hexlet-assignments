@@ -16,9 +16,11 @@ import java.util.Optional;
 public class PostsController {
 
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
-    public PostsController(PostRepository postRepository) {
+    public PostsController(PostRepository postRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping
@@ -66,6 +68,7 @@ public class PostsController {
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id) {
         postRepository.deleteById(id);
+        commentRepository.deleteAllByPostId(id);
     }
 }
 // END

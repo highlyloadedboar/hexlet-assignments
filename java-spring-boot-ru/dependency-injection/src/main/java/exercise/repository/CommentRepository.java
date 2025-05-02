@@ -8,4 +8,5 @@ import exercise.model.Comment;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
+    void deleteAllByPostId(long postId);
 }
