@@ -24,10 +24,10 @@ public class Application {
     private UserProperties userProperties;
 
     @GetMapping("/admins")
-    public List<User> getAdmins() {
+    public List<String> getAdmins() {
         Set<String> emails = new HashSet<>(userProperties.getAdmins());
 
-        return users.stream().filter(u -> emails.contains(u.getEmail())).sorted(Comparator.comparing(User::getName)).toList();
+        return users.stream().filter(u -> emails.contains(u.getEmail())).sorted(Comparator.comparing(User::getName)).map(User::getName).toList();
     }
     // END
 
