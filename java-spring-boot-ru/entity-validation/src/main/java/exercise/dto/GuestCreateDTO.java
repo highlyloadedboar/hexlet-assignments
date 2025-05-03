@@ -17,7 +17,7 @@ public class GuestCreateDTO {
     private String email;
 
     @NotBlank
-    @Size(min = 11, max = 13)
+    @Pattern(regexp = "^\\+\\d{11,13}$")
     private String phoneNumber;
 
     @Size(min = 4, max = 4)

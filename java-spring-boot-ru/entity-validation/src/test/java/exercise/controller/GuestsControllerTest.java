@@ -112,49 +112,25 @@ class GuestsControllerTest {
         );
     }
 
-//    @Test
-//    public void testCreate() throws Exception {
-//        var dto = mapper.map(testGuest);
-//
-//        var request = post("/guests")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(dto));
-//
-//        mockMvc.perform(request)
-//                .andExpect(status().isCreated());
-//
-//        var guest = guestRepository.findByPhoneNumber(testGuest.getPhoneNumber()).get();
-//
-//        assertThat(guest).isNotNull();
-//        assertThat(guest.getName()).isEqualTo(testGuest.getName());
-//        assertThat(guest.getEmail()).isEqualTo(testGuest.getEmail());
-//        assertThat(guest.getPhoneNumber()).isEqualTo(testGuest.getPhoneNumber());
-//    }
-
     @Test
     public void testCreate() throws Exception {
-        GuestCreateDTO requestDto = new GuestCreateDTO();
-        requestDto.setName(testGuest.getName());
-        requestDto.setEmail(testGuest.getEmail());
-        requestDto.setPhoneNumber(testGuest.getPhoneNumber());
-        requestDto.setClubCard(testGuest.getClubCard());
-        requestDto.setCardValidUntil(testGuest.getCardValidUntil());
+        var dto = mapper.map(testGuest);
 
         var request = post("/guests")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(requestDto));
+                .content(om.writeValueAsString(dto));
 
         mockMvc.perform(request)
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name").value(testGuest.getName()))
-                .andExpect(jsonPath("$.email").value(testGuest.getEmail()))
-                .andExpect(jsonPath("$.phoneNumber").value(testGuest.getPhoneNumber()));
+                .andExpect(status().isCreated());
 
-        var guest = guestRepository.findByPhoneNumber(testGuest.getPhoneNumber()).orElseThrow();
+        var guest = guestRepository.findByPhoneNumber(testGuest.getPhoneNumber()).get();
+
+        assertThat(guest).isNotNull();
         assertThat(guest.getName()).isEqualTo(testGuest.getName());
         assertThat(guest.getEmail()).isEqualTo(testGuest.getEmail());
         assertThat(guest.getPhoneNumber()).isEqualTo(testGuest.getPhoneNumber());
     }
+
 
     @Test
     public void testCreateWithNotValidEmail() throws Exception {
